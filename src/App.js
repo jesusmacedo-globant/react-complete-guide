@@ -27,6 +27,29 @@ class App extends Component {
     };
 
     /**
+     * Event listening for click event in button. All available events are here:
+     * https://reactjs.org/docs/events.html#supported-events
+     */
+    switchNameHandler = () => {
+        this.setState({
+            persons: [
+                {
+                    name: 'Jesus',
+                    age: 29,
+                },
+                {
+                    name: 'Luisa',
+                    age: 26,
+                },
+                {
+                    name: 'Pablo',
+                    age: 0,
+                },
+            ],
+        });
+    };
+
+    /**
      * Always required in components and it always has to return HTML content.
      */
     render() {
@@ -34,7 +57,7 @@ class App extends Component {
         return (
             <div className="App">
                 <h1>Hiii, duuude</h1>
-                <button>Switch Name</button>
+                <button onClick={this.switchNameHandler}>Switch Name</button>
                 <Person
                     name={this.state.persons[0].name}
                     age={this.state.persons[0].age}
