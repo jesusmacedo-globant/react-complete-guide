@@ -51,6 +51,28 @@ class App extends Component {
     };
 
     /**
+     * Event listener for changing the name from the child component and recieve here the new value.
+     */
+    handleOnChangeName = (event) => {
+        this.setState({
+            persons: [
+                {
+                    name: event.target.value,
+                    age: 29,
+                },
+                {
+                    name: 'Luisa',
+                    age: 26,
+                },
+                {
+                    name: 'Sauron',
+                    age: 0,
+                },
+            ],
+        });
+    };
+
+    /**
      * Always required in components and it always has to return HTML content.
      */
     render() {
@@ -66,6 +88,7 @@ class App extends Component {
                 <Person
                     name={this.state.persons[0].name}
                     age={this.state.persons[0].age}
+                    onChange={this.handleOnChangeName}
                 />
                 <Person
                     name={this.state.persons[1].name}
