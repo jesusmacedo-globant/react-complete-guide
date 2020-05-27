@@ -8,6 +8,24 @@ import Person from './Person/Person';
  * This is a class-based or stateful component because it is being created as a class and could have a state.
  */
 class App extends Component {
+    // * in order to react work properly with its state, this name cannot be changed
+    state = {
+        persons: [
+            {
+                name: 'Jesus',
+                age: 19,
+            },
+            {
+                name: 'Luisa',
+                age: 26,
+            },
+            {
+                name: 'Pablo',
+                age: 15,
+            },
+        ],
+    };
+
     /**
      * Always required in components and it always has to return HTML content.
      */
@@ -16,9 +34,19 @@ class App extends Component {
         return (
             <div className="App">
                 <h1>Hiii, duuude</h1>
-                <Person name="Jesus" age="19" />
-                <Person name="La Luisa" age="26" />
-                <Person name="Pablo" age="15">
+                <button>Switch Name</button>
+                <Person
+                    name={this.state.persons[0].name}
+                    age={this.state.persons[0].age}
+                />
+                <Person
+                    name={this.state.persons[1].name}
+                    age={this.state.persons[1].age}
+                />
+                <Person
+                    name={this.state.persons[2].name}
+                    age={this.state.persons[2].age}
+                >
                     My Hobbies: gaming
                 </Person>
             </div>
