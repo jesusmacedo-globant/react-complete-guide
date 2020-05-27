@@ -6,9 +6,10 @@ import React from 'react';
 const Person = (props) => {
     // * props.children gives us access to the nested content recieved in the component implementation.
     // * It can include text, complex structure or react components
+    // > props.onClick fires the eventListener in the parent component and passes it data (if defined there)
     return (
         <div>
-            <p>
+            <p onClick={props.onClick}>
                 I'm {props.name} and I am {props.age} years old!
             </p>
             <p>{props.children}</p>

@@ -29,8 +29,9 @@ class App extends Component {
     /**
      * Event listening for click event in button. All available events are here:
      * https://reactjs.org/docs/events.html#supported-events
+     * @param newName received when eventListener is fired FROM the child component and can also be fired from inside.
      */
-    switchNameHandler = () => {
+    switchNameHandler = (newName) => {
         this.setState({
             persons: [
                 {
@@ -42,7 +43,7 @@ class App extends Component {
                     age: 26,
                 },
                 {
-                    name: 'Pablo',
+                    name: newName,
                     age: 0,
                 },
             ],
@@ -54,10 +55,14 @@ class App extends Component {
      */
     render() {
         // * the content inside the component tag will be recieved inside the component as props.children
+        // > this.myFunction.bind(this, 'data') this is the preferred way of passing data to a function, recommended
+        // ! () => this.myFunction('data') this will work but components are reloaded continously, NOT recommended
         return (
             <div className="App">
                 <h1>Hiii, duuude</h1>
-                <button onClick={this.switchNameHandler}>Switch Name</button>
+                <button onClick={this.switchNameHandler.bind(this, 'Gandalf')}>
+                    Switch Name
+                </button>
                 <Person
                     name={this.state.persons[0].name}
                     age={this.state.persons[0].age}
@@ -69,6 +74,7 @@ class App extends Component {
                 <Person
                     name={this.state.persons[2].name}
                     age={this.state.persons[2].age}
+                    onClick={() => this.switchNameHandler('Saruman')}
                 >
                     My Hobbies: gaming
                 </Person>
