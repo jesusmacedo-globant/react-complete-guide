@@ -12,10 +12,15 @@ class App extends Component {
      * Always required in components and it always has to return HTML content.
      */
     render() {
+        // * the content inside the component tag will be recieved inside the component as props.children
         return (
             <div className="App">
                 <h1>Hiii, duuude</h1>
-                <Person />
+                <Person name="Jesus" age="19" />
+                <Person name="La Luisa" age="26" />
+                <Person name="Pablo" age="15">
+                    My Hobbies: gaming
+                </Person>
             </div>
         );
 
