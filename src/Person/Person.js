@@ -1,4 +1,6 @@
 import React from 'react';
+// * css imports always required because styles are global
+import './Person.css';
 
 /**
  * This is a functional or stateless component because it is being created from a function and has no state.
@@ -9,7 +11,7 @@ const Person = (props) => {
     // > props.onClick fires the eventListener in the parent component and passes it data (if defined there)
     // > two WAY data binding comes when the recieved value is displayed AND modified in the same element (see input)
     return (
-        <div>
+        <div className="Person">
             <p onClick={props.onClick}>
                 I'm {props.name} and I am {props.age} years old!
             </p>
