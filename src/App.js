@@ -76,13 +76,26 @@ class App extends Component {
      * Always required in components and it always has to return HTML content.
      */
     render() {
+        // * there are 2 ways of adding styles on an element, this is the inline method and we could also use a file
+        // > this is applied in: style={customStyle}
+        const customStyle = {
+            backgroundColor: 'white',
+            font: 'inherit',
+            border: '1px solid orange',
+            padding: '8px',
+            cursor: 'pointer',
+        };
+
         // * the content inside the component tag will be recieved inside the component as props.children
         // > this.myFunction.bind(this, 'data') this is the preferred way of passing data to a function, recommended
         // ! () => this.myFunction('data') this will work but components are reloaded continously, NOT recommended
         return (
             <div className="App">
                 <h1>Hiii, duuude</h1>
-                <button onClick={this.switchNameHandler.bind(this, 'Gandalf')}>
+                <button
+                    onClick={this.switchNameHandler.bind(this, 'Gandalf')}
+                    style={customStyle}
+                >
                     Switch Name
                 </button>
                 <Person
