@@ -82,6 +82,17 @@ class App extends Component {
     };
 
     /**
+     * > remember to avoid modifying the state directly, ALWAYS create a new constant with the current value and then
+     * > set the new value
+     */
+    deletePersonHandler = (personIndex) => {
+        // * const persons = this.state.persons.slice(); <- 1st way of creating a new copy
+        const persons = [...this.state.persons]; // * <- 2nd way of creating a new copy
+        persons.splice(personIndex, 1);
+        this.setState({ persons: persons });
+    };
+
+    /**
      * Always required in components and it always has to return HTML content.
      */
     render() {
@@ -101,22 +112,19 @@ class App extends Component {
         if (this.state.showPersons) {
             persons = (
                 <div>
-                    <Person
-                        name={this.state.persons[0].name}
-                        age={this.state.persons[0].age}
-                        onChange={this.handleOnChangeName}
-                    />
-                    <Person
-                        name={this.state.persons[1].name}
-                        age={this.state.persons[1].age}
-                    />
-                    <Person
-                        name={this.state.persons[2].name}
-                        age={this.state.persons[2].age}
-                        onClick={this.switchNameHandler.bind(this, 'Saruman')}
-                    >
-                        My Hobbies: gaming
-                    </Person>
+                    {this.state.persons.map((person, index) => {
+                        // * remember map also returns index
+                        return (
+                            <Person
+                                name={person.name}
+                                age={person.age}
+                                onClick={this.deletePersonHandler.bind(
+                                    this,
+                                    index
+                                )}
+                            />
+                        );
+                    })}
                 </div>
             );
         }
