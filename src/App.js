@@ -95,40 +95,44 @@ class App extends Component {
             cursor: 'pointer',
         };
 
+        // * cleaner way of handling component display. At the end of the day render() is CALLED MORE THAN ONCE
+        let persons = null;
+
+        if (this.state.showPersons) {
+            persons = (
+                <div>
+                    <Person
+                        name={this.state.persons[0].name}
+                        age={this.state.persons[0].age}
+                        onChange={this.handleOnChangeName}
+                    />
+                    <Person
+                        name={this.state.persons[1].name}
+                        age={this.state.persons[1].age}
+                    />
+                    <Person
+                        name={this.state.persons[2].name}
+                        age={this.state.persons[2].age}
+                        onClick={this.switchNameHandler.bind(this, 'Saruman')}
+                    >
+                        My Hobbies: gaming
+                    </Person>
+                </div>
+            );
+        }
+
         // * the content inside the component tag will be recieved inside the component as props.children
         // > this.myFunction.bind(this, 'data') this is the preferred way of passing data to a function, recommended
         // ! () => this.myFunction('data') this will work but components are reloaded continously, NOT recommended
         // * we can add simple expressions in order to render/hide content: both of them must be wrapped inside {}
+        // > {persons} already contains null or JSX content, so it is the simple way of using this condition
         return (
             <div className="App">
                 <h1>Hiii, duuude</h1>
                 <button onClick={this.togglePersonsHandler} style={customStyle}>
                     Toggle Persons
                 </button>
-
-                {this.state.showPersons ? (
-                    <div>
-                        <Person
-                            name={this.state.persons[0].name}
-                            age={this.state.persons[0].age}
-                            onChange={this.handleOnChangeName}
-                        />
-                        <Person
-                            name={this.state.persons[1].name}
-                            age={this.state.persons[1].age}
-                        />
-                        <Person
-                            name={this.state.persons[2].name}
-                            age={this.state.persons[2].age}
-                            onClick={this.switchNameHandler.bind(
-                                this,
-                                'Saruman'
-                            )}
-                        >
-                            My Hobbies: gaming
-                        </Person>
-                    </div>
-                ) : null}
+                {persons}
             </div>
         );
 
