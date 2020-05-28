@@ -12,14 +12,17 @@ class App extends Component {
     state = {
         persons: [
             {
+                id: '1',
                 name: 'Jesus',
                 age: 19,
             },
             {
+                id: '2',
                 name: 'Luisa',
                 age: 26,
             },
             {
+                id: '3',
                 name: 'Pablo',
                 age: 15,
             },
@@ -36,14 +39,17 @@ class App extends Component {
         this.setState({
             persons: [
                 {
+                    id: '1',
                     name: 'Jesus',
                     age: 29,
                 },
                 {
+                    id: '2',
                     name: 'Luisa',
                     age: 26,
                 },
                 {
+                    id: '3',
                     name: newName,
                     age: 0,
                 },
@@ -53,23 +59,24 @@ class App extends Component {
 
     /**
      * Event listener for changing the name from the child component and recieve here the new value.
+     * @param event from HTMl event onChange.
+     * @param id from selected `Person`.
      */
-    handleOnChangeName = (event) => {
+    handleOnChangeName = (event, id) => {
+        // * get id from selected Person
+        const personIndex = this.state.persons.findIndex((person) => {
+            return person.id === id;
+        });
+
+        // * create new copy in a new variable for changing the Person value
+        const person = { ...this.state.persons[personIndex] };
+        person.name = event.target.value;
+        // * create new copy of whole array for changing the specific Person value
+        const persons = [...this.state.persons];
+        persons[personIndex] = person;
+
         this.setState({
-            persons: [
-                {
-                    name: event.target.value,
-                    age: 29,
-                },
-                {
-                    name: 'Luisa',
-                    age: 26,
-                },
-                {
-                    name: 'Sauron',
-                    age: 0,
-                },
-            ],
+            persons: persons,
         });
     };
 
@@ -114,14 +121,19 @@ class App extends Component {
                 <div>
                     {this.state.persons.map((person, index) => {
                         // * remember map also returns index
+                        // > this.handleOnChangeName is called like this in order to pass the HTML event
                         return (
                             <Person
+                                key={person.id}
                                 name={person.name}
                                 age={person.age}
                                 onClick={this.deletePersonHandler.bind(
                                     this,
                                     index
                                 )}
+                                onChange={(event) =>
+                                    this.handleOnChangeName(event, person.id)
+                                }
                             />
                         );
                     })}
