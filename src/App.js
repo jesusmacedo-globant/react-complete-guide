@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import './App.css';
 // * import custom components
 import Person from './Person/Person';
+// * import external libraries
+import Radium, { StyleRoot } from 'radium';
 
 /**
  * This is a class-based or stateful component because it is being created as a class and could have a state.
@@ -112,6 +114,11 @@ class App extends Component {
             border: '1px solid black',
             padding: '8px',
             cursor: 'pointer',
+            // * Radium allows to use pseudo-selectors as properties
+            ':hover': {
+                backgroundColor: 'lightgreen',
+                color: 'black',
+            },
         };
 
         // * cleaner way of handling component display. At the end of the day render() is CALLED MORE THAN ONCE
@@ -142,6 +149,11 @@ class App extends Component {
             );
 
             customStyle.backgroundColor = 'red';
+            // > other way of using pseudo-selectors in jsx
+            customStyle[':hover'] = {
+                backgroundColor: 'salmon',
+                color: 'black',
+            };
         }
 
         let classes = [];
@@ -157,14 +169,20 @@ class App extends Component {
         // ! () => this.myFunction('data') this will work but components are reloaded continously, NOT recommended
         // * we can add simple expressions in order to render/hide content: both of them must be wrapped inside {}
         // > {persons} already contains null or JSX content, so it is the simple way of using this condition
+        // * StyleRoot is a wrapper applied to the main component in order to use media queries
         return (
-            <div className="App">
-                <p className={classes.join(' ')}>Hiii, duuude</p>
-                <button onClick={this.togglePersonsHandler} style={customStyle}>
-                    Toggle Persons
-                </button>
-                {persons}
-            </div>
+            <StyleRoot>
+                <div className="App">
+                    <p className={classes.join(' ')}>Hiii, duuude</p>
+                    <button
+                        onClick={this.togglePersonsHandler}
+                        style={customStyle}
+                    >
+                        Toggle Persons
+                    </button>
+                    {persons}
+                </div>
+            </StyleRoot>
         );
 
         // * the following code does the same as the previous return statement
@@ -176,4 +194,5 @@ class App extends Component {
     }
 }
 
-export default App;
+// > higher order component
+export default Radium(App);
