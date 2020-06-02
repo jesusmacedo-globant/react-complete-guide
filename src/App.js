@@ -106,9 +106,10 @@ class App extends Component {
         // * there are 2 ways of adding styles on an element, this is the inline method and we could also use a file
         // > this is applied in: style={customStyle}
         const customStyle = {
-            backgroundColor: 'white',
+            backgroundColor: 'green',
+            color: 'white',
             font: 'inherit',
-            border: '1px solid orange',
+            border: '1px solid black',
             padding: '8px',
             cursor: 'pointer',
         };
@@ -139,6 +140,16 @@ class App extends Component {
                     })}
                 </div>
             );
+
+            customStyle.backgroundColor = 'red';
+        }
+
+        let classes = [];
+        if (this.state.persons.length <= 2) {
+            classes.push('red');
+        }
+        if (this.state.persons.length <= 1) {
+            classes.push('bold');
         }
 
         // * the content inside the component tag will be recieved inside the component as props.children
@@ -148,7 +159,7 @@ class App extends Component {
         // > {persons} already contains null or JSX content, so it is the simple way of using this condition
         return (
             <div className="App">
-                <h1>Hiii, duuude</h1>
+                <p className={classes.join(' ')}>Hiii, duuude</p>
                 <button onClick={this.togglePersonsHandler} style={customStyle}>
                     Toggle Persons
                 </button>
